@@ -46,7 +46,10 @@ class AppMetrics:
 
             lines.extend(
                 [
-                    "# HELP pulseops_http_request_duration_seconds_total Total accumulated request duration.",
+                    (
+                        "# HELP pulseops_http_request_duration_seconds_total "
+                        "Total accumulated request duration."
+                    ),
                     "# TYPE pulseops_http_request_duration_seconds_total counter",
                     (
                         "pulseops_http_request_duration_seconds_total "

@@ -1,8 +1,11 @@
 """Async SQLAlchemy engine and session management."""
 
-from collections.abc import AsyncIterator
-
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
 
 from app.core.config import Settings
 
@@ -39,7 +42,7 @@ class DatabaseManager:
         self._engine = None
         self._session_factory = None
 
-    def session(self) -> AsyncIterator[AsyncSession]:
+    def session(self) -> AsyncSession:
         """Create a new async database session for repository usage."""
         if self._session_factory is None:
             raise RuntimeError("Database manager has not been initialized.")

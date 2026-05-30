@@ -1,6 +1,7 @@
 """FastAPI dependency providers for shared infrastructure and services."""
 
 from collections.abc import AsyncIterator
+from typing import Annotated
 
 from fastapi import Depends, Request
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -21,54 +22,70 @@ def get_container(request: Request) -> AppContainer:
     return request.app.state.container
 
 
-def get_settings(container: AppContainer = Depends(get_container)) -> Settings:
+ContainerDependency = Annotated[AppContainer, Depends(get_container)]
+
+
+def get_settings(container: ContainerDependency) -> Settings:
     """Resolve application settings from the shared container."""
     return container.settings
 
 
-def get_metrics(container: AppContainer = Depends(get_container)) -> AppMetrics:
+SettingsDependency = Annotated[Settings, Depends(get_settings)]
+
+
+def get_metrics(container: ContainerDependency) -> AppMetrics:
     """Resolve the in-memory metrics registry."""
     return container.metrics
 
 
-def get_database(container: AppContainer = Depends(get_container)) -> DatabaseManager:
+MetricsDependency = Annotated[AppMetrics, Depends(get_metrics)]
+
+
+def get_database(container: ContainerDependency) -> DatabaseManager:
     """Resolve the database manager."""
     return container.database
 
 
-def get_redis(container: AppContainer = Depends(get_container)) -> RedisManager:
+DatabaseDependency = Annotated[DatabaseManager, Depends(get_database)]
+
+
+def get_redis(container: ContainerDependency) -> RedisManager:
     """Resolve the Redis manager."""
     return container.redis
 
 
-def get_ai_provider(container: AppContainer = Depends(get_container)) -> AIProvider:
+RedisDependency = Annotated[RedisManager, Depends(get_redis)]
+
+
+def get_ai_provider(container: ContainerDependency) -> AIProvider:
     """Resolve the configured AI provider implementation."""
     return container.ai_provider
 
 
-async def get_db_session(
-    database: DatabaseManager = Depends(get_database),
-) -> AsyncIterator[AsyncSession]:
+AIProviderDependency = Annotated[AIProvider, Depends(get_ai_provider)]
+
+
+async def get_db_session(database: DatabaseDependency) -> AsyncIterator[AsyncSession]:
     """Yield a request-scoped SQLAlchemy session for future repository layers."""
     async with database.session() as session:
         yield session
 
 
-def get_health_service(settings: Settings = Depends(get_settings)) -> HealthService:
+def get_health_service(settings: SettingsDependency) -> HealthService:
     """Resolve the health service."""
     return HealthService(settings)
 
 
-def get_metrics_service(metrics: AppMetrics = Depends(get_metrics)) -> MetricsService:
+def get_metrics_service(metrics: MetricsDependency) -> MetricsService:
     """Resolve the metrics service."""
     return MetricsService(metrics)
 
 
 def get_service_catalog_service(
-    settings: Settings = Depends(get_settings),
-    database: DatabaseManager = Depends(get_database),
-    redis: RedisManager = Depends(get_redis),
-    ai_provider: AIProvider = Depends(get_ai_provider),
+    settings: SettingsDependency,
+    database: DatabaseDependency,
+    redis: RedisDependency,
+    ai_provider: AIProviderDependency,
 ) -> ServiceCatalogService:
     """Resolve the infrastructure service catalog service."""
     return ServiceCatalogService(settings, database, redis, ai_provider)

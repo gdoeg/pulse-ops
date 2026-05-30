@@ -50,9 +50,7 @@ class JsonFormatter(logging.Formatter):
 def configure_logging(settings: Settings) -> None:
     """Configure root logging with JSON output."""
     handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(
-        JsonFormatter(service=settings.app_name, environment=settings.environment)
-    )
+    handler.setFormatter(JsonFormatter(service=settings.app_name, environment=settings.environment))
 
     root_logger = logging.getLogger()
     root_logger.handlers.clear()

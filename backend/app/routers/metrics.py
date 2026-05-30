@@ -1,5 +1,7 @@
 """Metrics endpoints for observability integrations."""
 
+from typing import Annotated
+
 from fastapi import APIRouter, Depends
 from fastapi.responses import PlainTextResponse
 
@@ -7,6 +9,7 @@ from app.core.dependencies import get_metrics_service
 from app.services.metrics import MetricsService
 
 router = APIRouter(tags=["observability"])
+MetricsServiceDependency = Annotated[MetricsService, Depends(get_metrics_service)]
 
 
 @router.get(
@@ -15,9 +18,7 @@ router = APIRouter(tags=["observability"])
     response_class=PlainTextResponse,
     responses={200: {"content": {"text/plain": {}}}},
 )
-async def metrics(
-    service: MetricsService = Depends(get_metrics_service),
-) -> PlainTextResponse:
+async def metrics(service: MetricsServiceDependency) -> PlainTextResponse:
     """Return metrics emitted by the current API process."""
     return PlainTextResponse(
         content=service.render(),
