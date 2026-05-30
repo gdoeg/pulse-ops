@@ -1,0 +1,6 @@
+# Frontend local artifacts
+node_modules/
+.next/
+out/
+coverage/
+.env.local
