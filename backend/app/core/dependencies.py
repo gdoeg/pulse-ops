@@ -14,6 +14,7 @@ from app.integrations.redis import RedisManager
 from app.observability.metrics import AppMetrics
 from app.services.health import HealthService
 from app.services.metrics import MetricsService
+from app.services.monitor import MonitorService
 from app.services.service_catalog import ServiceCatalogService
 
 
@@ -66,7 +67,7 @@ AIProviderDependency = Annotated[AIProvider, Depends(get_ai_provider)]
 
 
 async def get_db_session(database: DatabaseDependency) -> AsyncIterator[AsyncSession]:
-    """Yield a request-scoped SQLAlchemy session for future repository layers."""
+    """Yield a request-scoped SQLAlchemy session for repository layers."""
     async with database.session() as session:
         yield session
 
@@ -89,3 +90,8 @@ def get_service_catalog_service(
 ) -> ServiceCatalogService:
     """Resolve the infrastructure service catalog service."""
     return ServiceCatalogService(settings, database, redis, ai_provider)
+
+
+def get_monitor_service() -> MonitorService:
+    """Resolve the monitoring service (stateless, created per request)."""
+    return MonitorService()
