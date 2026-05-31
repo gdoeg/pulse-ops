@@ -23,9 +23,9 @@ export function ServiceOverviewGrid({ data }: { data: DashboardData }) {
             <CardHeader className="flex-row items-start justify-between space-y-0">
               <div>
                 <CardDescription>{card.label}</CardDescription>
-                <CardTitle className="mt-3 text-3xl">{card.value}</CardTitle>
+                <CardTitle className="mt-2 text-[1.65rem]">{card.value}</CardTitle>
               </div>
-              <div className="rounded-2xl border border-cyan-400/10 bg-cyan-400/10 p-3 text-cyan-200">
+              <div className="rounded-xl border border-cyan-400/10 bg-cyan-400/10 p-2.5 text-cyan-200">
                 <Icon className="h-5 w-5" />
               </div>
             </CardHeader>

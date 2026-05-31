@@ -5,7 +5,7 @@ function Sparkline({ points }: { points: number[] }) {
   const max = Math.max(...points);
 
   return (
-    <div className="mt-6 flex h-40 items-end gap-2">
+    <div className="mt-5 flex h-32 items-end gap-1.5">
       {points.map((point, index) => (
         <div key={`${point}-${index}`} className="flex-1 rounded-t-2xl bg-cyan-400/15">
           <div
@@ -20,7 +20,7 @@ function Sparkline({ points }: { points: number[] }) {
 
 export function MetricsCharts({ charts }: { charts: MetricChart[] }) {
   return (
-    <section className="grid gap-4 lg:grid-cols-3">
+    <section className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
       {charts.map((chart) => (
         <Card key={chart.id}>
           <CardHeader>

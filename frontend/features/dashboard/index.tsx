@@ -86,12 +86,12 @@ function DashboardContent() {
     >
       <ServiceOverviewGrid data={data} />
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[1.45fr,0.95fr]">
-        <div className="space-y-6">
+      <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1.35fr)_minmax(0,0.9fr)]">
+        <div className="min-w-0 space-y-5">
           <MetricsCharts charts={data.metricsCharts} />
           <ErrorMonitoringTable events={data.errorEvents} />
         </div>
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-5">
           <ServiceStatusPanel services={data.services} />
           <UptimeVisualization regions={data.uptimeRegions} />
           <AutomationEmptyState automations={data.automations} />
