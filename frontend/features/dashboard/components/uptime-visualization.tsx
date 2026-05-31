@@ -8,9 +8,9 @@ export function UptimeVisualization({ regions }: { regions: UptimeRegion[] }) {
         <CardDescription>Uptime placeholder</CardDescription>
         <CardTitle>Regional availability bands</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-5">
+      <CardContent className="space-y-4">
         {regions.map((region) => (
-          <div key={region.region} className="rounded-2xl border border-white/5 bg-white/[0.02] p-4">
+          <div key={region.region} className="rounded-xl border border-white/5 bg-white/[0.02] p-3">
             <div className="flex items-end justify-between gap-3">
               <div>
                 <h3 className="font-medium text-white">{region.region}</h3>
@@ -21,7 +21,7 @@ export function UptimeVisualization({ regions }: { regions: UptimeRegion[] }) {
                 <div className="text-xs uppercase tracking-[0.2em] text-slate-500">30d availability</div>
               </div>
             </div>
-            <div className="mt-4 flex items-end gap-2">
+            <div className="mt-3 flex items-end gap-1.5">
               {region.samples.map((sample, index) => (
                 <div key={`${region.region}-${index}`} className="flex-1 rounded-full bg-white/5 p-1">
                   <div

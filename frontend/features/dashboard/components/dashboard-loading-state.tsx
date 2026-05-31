@@ -24,7 +24,7 @@ export function DashboardLoadingState() {
           </Card>
         ))}
       </div>
-      <div className="mt-6 grid gap-6 xl:grid-cols-[1.45fr,0.95fr]">
+      <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1.35fr)_minmax(0,0.9fr)]">
         <Card>
           <CardHeader>
             <Skeleton className="h-5 w-40" />

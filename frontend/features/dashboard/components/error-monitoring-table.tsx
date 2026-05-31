@@ -40,7 +40,7 @@ export function ErrorMonitoringTable({ events }: { events: ErrorEvent[] }) {
                 {events.map((event) => (
                   <TableRow key={`${event.service}-${event.issue}`}>
                     <TableCell className="font-medium text-white">{event.service}</TableCell>
-                    <TableCell className="min-w-72">{event.issue}</TableCell>
+                    <TableCell className="min-w-52 max-w-sm break-words">{event.issue}</TableCell>
                     <TableCell>
                       <Badge className={cn("border-transparent capitalize", severityClasses[event.severity])}>{event.severity}</Badge>
                     </TableCell>

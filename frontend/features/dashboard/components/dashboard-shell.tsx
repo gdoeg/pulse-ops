@@ -26,21 +26,21 @@ export function DashboardShell({
   actions?: ReactNode;
 }) {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-[1600px] gap-6 px-4 py-5 sm:px-6 lg:px-8">
-      <aside className="hidden w-72 shrink-0 lg:block">
+    <main className="mx-auto flex min-h-screen w-full max-w-[1600px] gap-5 px-3 py-4 sm:px-4 lg:px-5">
+      <aside className="hidden w-64 shrink-0 lg:block">
         <Card className="sticky top-5 overflow-hidden">
-          <div className="border-b border-white/10 px-6 py-6">
+          <div className="border-b border-white/10 px-5 py-5">
             <p className="text-xs uppercase tracking-[0.35em] text-cyan-300">PulseOps</p>
-            <h1 className="mt-3 text-2xl font-semibold text-white">Observability</h1>
+            <h1 className="mt-2 text-xl font-semibold text-white">Observability</h1>
             <p className="mt-2 text-sm text-slate-400">Operational command center for internal reliability teams.</p>
           </div>
-          <nav className="space-y-1 p-4">
+          <nav className="space-y-1 p-3">
             {navigation.map(({ label, icon: Icon, active, href }) => (
               <Link
                 key={label}
                 href={href}
                 className={cn(
-                  "flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-400 transition-colors hover:bg-slate-400/10 hover:text-slate-300",
+                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-400 transition-colors hover:bg-slate-400/10 hover:text-slate-300",
                   active && "bg-cyan-400/10 text-cyan-200 hover:bg-cyan-400/20",
                 )}
               >
@@ -49,25 +49,25 @@ export function DashboardShell({
               </Link>
             ))}
           </nav>
-          <div className="border-t border-white/10 px-6 py-5">
+          <div className="border-t border-white/10 px-5 py-4">
             <Badge className="bg-emerald-500/10 text-emerald-200">SRE on-call healthy</Badge>
           </div>
         </Card>
       </aside>
 
       <div className="min-w-0 flex-1">
-        <header className="mb-6 flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/[0.03] px-5 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+        <header className="mb-5 flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 sm:px-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.28em] text-slate-500 lg:hidden">
               <BellRing className="h-4 w-4 text-cyan-300" />
               Internal engineering platform
             </div>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white">{heading}</h2>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-[1.75rem]">{heading}</h2>
             <p className="mt-2 max-w-3xl text-sm text-slate-400">{subheading}</p>
           </div>
-          <div className="flex flex-wrap items-center gap-3">{actions}</div>
+          <div className="flex flex-wrap items-center gap-2.5">{actions}</div>
         </header>
-        <div className="mb-6 flex gap-2 overflow-x-auto pb-1 lg:hidden">
+        <div className="mb-5 flex gap-2 overflow-x-auto pb-1 lg:hidden">
           {navigation.map(({ label, active, href }) => (
             <Link
               key={label}
