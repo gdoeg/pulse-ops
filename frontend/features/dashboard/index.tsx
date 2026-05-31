@@ -88,13 +88,12 @@ function DashboardContent() {
 
       <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1.35fr)_minmax(0,0.9fr)]">
         <div className="min-w-0 space-y-5">
-          <MetricsCharts charts={data.metricsCharts} />
+          <MetricsCharts charts={data.metricsCharts} trailingCard={<AutomationEmptyState automations={data.automations} compact />} />
           <ErrorMonitoringTable events={data.errorEvents} />
         </div>
         <div className="min-w-0 space-y-5">
           <ServiceStatusPanel services={data.services} />
           <UptimeVisualization regions={data.uptimeRegions} />
-          <AutomationEmptyState automations={data.automations} />
         </div>
       </div>
     </DashboardShell>
